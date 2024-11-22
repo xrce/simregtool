@@ -27,7 +27,7 @@ def bearer():
         for entry in driver.get_log('performance'):
             try:
                 res = json.loads(entry['message'])['message']['params']['request']['method']
-                if res['method'] == 'POST' and 'generate-jwt' in res['url']: bear = res['headers']['Authorization']
+                if res['method'] == 'POST' and 'generate-jwt' in res['url']: bear = res['headers']['Authorization'].replace('Bearer ','')
             except: bear = "VzNicHIzR24wbjEzaW8yMDI0OmJ5ZHQybzI0KiE="
     finally: driver.quit()
     try: return requests.post('https://jupiter-ms-webprereg.xlaxiata.id/generate-jwt', headers=headers(bear)).json()['encryptToken']
